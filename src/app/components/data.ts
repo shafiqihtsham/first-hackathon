@@ -322,7 +322,7 @@ const edges = [
     research: 2,
   },
   {
-    from: "Launch",
+    from: "launch",
     to: "win",
     optionText: "Next!",
     effectDesc: " . . .",
