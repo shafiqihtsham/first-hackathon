@@ -73,11 +73,35 @@ const nodes = [
       "Research begins\n Time has been lost, but we need to do what we can!",
     isEnd: false,
   },
+
+
+  {
+   id: "Offer",
+   description: "Offer to help...\nYou discovered it after all...",
+   isEnd: false,
+      },
+
+  {
+   id: "OfferNo"
+   description: "No consensus is reached...\nOther countries begin independent efforts..."
+   isEnd: false,
+
+      },
+
+  {
+   id: "theBadEnding",
+   description: "No action was taken in time, the asteroid destroys... the city it was headed towards...\nor another country/ies saved the world...?",
+   isEnd: true,
+      },
+
+
   {
    id: "win",
    description: "Crisis Averted!\nThe asteroid's path has been diverted, and the Earth has been saved",
    isEnd: true,
   },
+
+
 ];
 
 const edges = [
@@ -137,13 +161,58 @@ const edges = [
    reputation: -2,
    defense: 2,
    research: 2,
-
-
       },
 
 
+  {
+   from: "SlowResearch",
+   to: "CountriesA"
+   optionText: "Next",
+   effectDesc: ". . .",
+   time: 1,
+   money: 0,
+   reputation: -10,
+   defense: 0,
+   research: 0,
+      },
+
+   {
+    from: "UNint",
+    to: "Offer",
+    optionText: "Next",
+    effectDesc: ". . .",
+    time: 0,
+    money: 0,
+    reputation: 0,
+    defense: 0,
+    research: 0,
 
 
+       },
+
+  {
+   from: "Offer"
+   to: "OfferNo",
+   optionText: "Decline to help",
+   effectDesc: ". . .",
+   time: 2,
+   money: 0,
+   reputation: -10,
+   defense: 0,
+   research: 0,
+
+      },
+  {
+   from: "OfferNo",
+   to: "theBadEnding",
+   optionText: "Next",
+   effectDesc: ". . . ",
+   time: 100,
+   money: -100,
+   reputation: -100,
+   defense: -100,
+   research: -100,
+      },
   {
     from: "A_Impact",
     to: "ImpactKnown",
