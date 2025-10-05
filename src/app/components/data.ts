@@ -6,19 +6,14 @@ const nodes = [
     isEnd: false,
   },
   {
-    id: "StartA",
+    id: "A_Impact",
     description:
       "[Intermediate Screen]\n“More research is done, we understand the issue better”\nExpected Impact: more specific date and impact scenario",
     isEnd: false,
   },
   {
-    id: "StartB",
+    id: "PubResponse",
     description: "Public response is not positive..\nSpend time/money on PR?",
-    isEnd: false,
-  },
-  {
-    id: "StartC",
-    description: "blah",
     isEnd: false,
   },
   {
@@ -157,6 +152,17 @@ const edges = [
     research: 5,
 
   },
+  {
+    from: "Volun",
+    to: "DevA",
+    optionText: "Act Now?",
+    effectDesc: ". . .",
+    time: 2,
+    money: 30,
+    reputation: 5,
+    defense: 5,
+    research: 5,
+      }
 ];
 
 export { nodes, edges };
