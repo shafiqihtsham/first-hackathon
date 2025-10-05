@@ -2,6 +2,7 @@ import * as React from "react";
 import { EventGraph } from "./parser";
 import { nodes, edges } from "./data";
 import { GameBackground } from "./GameBackground";
+import type { EdgeRow } from "./parser";
 
 export const WebEventGraph: React.FC = () => {
   const [currentNodeId, setCurrentNodeId] =
@@ -34,7 +35,7 @@ export const WebEventGraph: React.FC = () => {
     (e) => e.from === currentNodeId
   );
 
-  const handleEdgeClick = (edge: any) => {
+  const handleEdgeClick = (edge: EdgeRow) => {
     setCurrentNodeId(edge.to);
 
     setBudget((prev) => Math.min(100, Math.max(0, prev + (edge.money || 0))));
