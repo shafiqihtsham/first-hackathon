@@ -47,6 +47,7 @@ const nodes = [
     isEnd: false,
     factText: "International politics can be a significant factor in decision making and progress\nSharing knowledge and intent allows others to understand the situation more clearly"
   },
+
   {
     id: "UNint",
     description:
@@ -144,6 +145,17 @@ const edges = [
     defense: 0,
     research: 0,
   },
+    {
+    from: "PubResponse",
+    to: "A_Impact",
+    optionText: "Work on PR image and start researching?",
+    effectDesc: ". . .",
+    time: -20,
+    money: 0,
+    reputation: 5,
+    defense: 0,
+    research: 0,
+  },
   {
     from: "NothingA",
     to: "SlowResearch",
@@ -166,17 +178,7 @@ const edges = [
     defense: 0,
     research: 0,
   },
-  {
-    from: "StartScreen",
-    to: "NothingA",
-    optionText: "Do nothing, it'll all be fine.",
-    effectDesc: "Life continues as it always has...",
-    time: 5,
-    money: 0,
-    reputation: -10,
-    defense: 0,
-    research: 0,
-  },
+
   {
     from: "NothingA",
     to: "SlowResearch",
@@ -226,6 +228,18 @@ const edges = [
 
 
        },
+   {
+    from: "CountriesA",
+    to: "UNint",
+    optionText: "Let UN delegate the workload/cost",
+    effectDesc:
+      ". . . .",
+    time: 3,
+    money: -15,
+    reputation: 5,
+    defense: 0,
+    research: 10,
+  },
 
   {
    from: "Offer"
