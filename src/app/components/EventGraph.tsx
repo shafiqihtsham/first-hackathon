@@ -57,9 +57,9 @@ export const WebEventGraph: React.FC = () => {
     value,
     color,
   }: {
-    label: any;
-    value: any;
-    color: any;
+    label: string;
+    value: number;
+    color: string;
   }) => (
     <div className="mb-2">
       <div className="flex justify-between mb-1 text-sm font-medium text-white">
