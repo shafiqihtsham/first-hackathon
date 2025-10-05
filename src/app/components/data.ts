@@ -232,17 +232,7 @@ const edges = [
     defense: 0,
     research: 0,
   },
-  {
-    from: "CountriesA",
-    to: "UNint",
-    optionText: "Let UN delegate the workload/cost",
-    effectDesc: ". . . .",
-    time: 3,
-    money: -15,
-    reputation: 5,
-    defense: 0,
-    research: 10,
-  },
+
 
   {
     from: "Offer",
