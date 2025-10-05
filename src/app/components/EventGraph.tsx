@@ -1,49 +1,51 @@
 import * as React from "react";
-import { EventGraph } from "./parser";
+import { EventGraph, NodeRow, EdgeRow } from "./parser";
+import { nodes, edges } from "./data"; // Import raw data arrays
 
 export const WebEventGraph: React.FC = () => {
-  const [edgeData, setEdgeData] = React.useState<string | undefined>();
-  const [nodeData, setNodeData] = React.useState<string | undefined>();
+  const [currentNodeId, setCurrentNodeId] =
+    React.useState<string>("StartScreen");
 
-  // Load edges
-  React.useEffect(() => {
-    fetch("/edges.csv")
-      .then((res) => res.text())
-      .then((csvText) => {
-        setEdgeData(csvText);
-      });
-  }, []);
-
-  // Load nodes
-  React.useEffect(() => {
-    fetch("/nodes.csv")
-      .then((res) => res.text())
-      .then((csvText) => {
-        setNodeData(csvText);
-      });
-  }, []);
-
-  // Create EventGraph once both CSVs are loaded
+  // Create EventGraph instance once (no dependencies, raw data is static)
   const eventGraph = React.useMemo(() => {
-    if (!edgeData || !nodeData) return null;
     try {
-      return new EventGraph(nodeData, edgeData); // node first, edge second
+      return new EventGraph(nodes, edges);
     } catch (err) {
       console.error("Failed to construct EventGraph:", err);
       return null;
     }
-  }, [nodeData, edgeData]);
+  }, []);
 
-  if (!eventGraph) {
-    return <div>Loading event graph...</div>;
-  }
+  if (!eventGraph) return <div>Loading event graph...</div>;
 
-  console.log(edgeData, nodeData);
+  const currentNode = eventGraph.nodes.find((n) => n.id === currentNodeId);
+  if (!currentNode) return <div>Error: Node not found</div>;
+
+  const outgoingEdges = eventGraph.edges.filter(
+    (e) => e.from === currentNodeId
+  );
 
   return (
-    <div>
-      <h2>Event Graph</h2>
-      <p>{eventGraph.nodes[0].description}</p>
+    <div className="max-w-xl mx-auto mt-10 p-4 bg-white shadow-md rounded-lg text-center">
+      <h2 className="text-xl font-semibold mb-4 text-black">
+        {currentNode.description}
+      </h2>
+
+      {outgoingEdges.length === 0 ? (
+        <p className="text-gray-500">No further options. End of path.</p>
+      ) : (
+        <div className="space-y-2">
+          {outgoingEdges.map((edge, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentNodeId(edge.to)}
+              className="w-full py-2 px-4 bg-green-500 hover:bg-green-600 text-black font-semibold rounded"
+            >
+              {edge.optionText || "Continue"}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

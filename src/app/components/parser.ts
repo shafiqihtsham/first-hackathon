@@ -2,48 +2,29 @@
 // Type Definitions
 // ------------------
 
-type CSVRow = Record<string, string>;
-
 // Nodes must include an "id" and "description"
-type NodeRow = CSVRow & {
+type NodeRow = {
   id: string;
   description: string;
+  isEnd: string;
 };
 
 // Edges must include "from", "to", "optionText", and "condition"
-type EdgeRow = CSVRow & {
+//from,to,optionText,EffectDesc,time,money,reputation,Defense,research,effects
+type EdgeRow = {
   from: string;
   to: string;
   optionText: string;
-  condition: string;
+  effectDesc: string;
+  time: number;
+  money: number;
+  reputation: number;
+  defense: number;
+  research: number;
+  effects: number;
 };
 
 type NodeId = string;
-
-// ------------------
-// CSV Parser
-// ------------------
-
-function parseCSV(csv: string): CSVRow[] {
-  const rows = csv
-    .trim()
-    .replace(/\r/g, "")
-    .split("\n")
-    .map((line) => line.split(","));
-
-  const header = rows[0];
-  const dataRows = rows.slice(1);
-
-  if (!header) return [];
-
-  return dataRows.map((row) => {
-    const obj: Record<string, string> = {};
-    header.forEach((key, i) => {
-      obj[key] = row[i] ?? "";
-    });
-    return obj;
-  });
-}
 
 // ------------------
 // EventGraph Class
@@ -54,34 +35,27 @@ class EventGraph {
   public edges: EdgeRow[] = [];
   public adjacencyList: Map<NodeId, NodeId[]> = new Map();
 
-  constructor(nodeCsvText: string, edgeCsvText: string) {
+  // Accept arrays directly instead of CSV strings
+  constructor(nodes: NodeRow[], edges: EdgeRow[]) {
     this.nodes = [];
     this.edges = [];
     this.adjacencyList = new Map();
 
-    const nodeCsv = parseCSV(nodeCsvText);
-    const edgeCsv = parseCSV(edgeCsvText);
-
     // Validate and load nodes
-    for (const record of nodeCsv) {
-      if (!record.id || record.id.trim() === "") {
-        throw new Error(
-          `Node row missing required "id": ${JSON.stringify(record)}`
-        );
+    for (const node of nodes) {
+      if (!node.id || node.id.trim() === "") {
+        throw new Error(`Node missing required "id": ${JSON.stringify(node)}`);
       }
-      this.nodes.push(record as NodeRow);
+      this.nodes.push(node);
     }
 
     const seenNodes = new Set(this.nodes.map((n) => n.id));
 
     // Validate and load edges
-    for (const record of edgeCsv) {
-      const { from, to } = record;
-
+    for (const edge of edges) {
+      const { from, to } = edge;
       if (!from || !to) {
-        throw new Error(
-          `Edge row missing "from" or "to": ${JSON.stringify(record)}`
-        );
+        throw new Error(`Edge missing "from" or "to": ${JSON.stringify(edge)}`);
       }
       if (!seenNodes.has(from)) {
         throw new Error(`Edge refers to unknown "from" node id: ${from}`);
@@ -89,15 +63,13 @@ class EventGraph {
       if (!seenNodes.has(to)) {
         throw new Error(`Edge refers to unknown "to" node id: ${to}`);
       }
-
-      this.edges.push(record as EdgeRow);
+      this.edges.push(edge);
     }
 
     // Build adjacency list
     for (const nodeId of seenNodes) {
       this.adjacencyList.set(nodeId, []);
     }
-
     for (const { from, to } of this.edges) {
       this.adjacencyList.get(from)!.push(to);
     }
@@ -108,6 +80,6 @@ class EventGraph {
 // Exports
 // ------------------
 
-export { parseCSV, EventGraph };
+export { EventGraph };
 
 export type { CSVRow, NodeRow, EdgeRow, NodeId };
