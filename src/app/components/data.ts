@@ -48,33 +48,31 @@ const nodes = [
   {
     id: "PubResponse",
     description:
-        "Public response is not positive... \nShift efforts and funding to PR management?",
+      "Public response is not positive... \nShift efforts and funding to PR management?",
     isEnd: false,
-      },
-   {
+  },
+  {
     id: "Volunt",
-    description: "[Other Country] volunteers to aid in R&D\nWe’ll send a rocket to intercept it, knocking it off course!\nBut do we send it now, or wait until its closer?",
+    description:
+      "[Other Country] volunteers to aid in R&D\nWe’ll send a rocket to intercept it, knocking it off course!\nBut do we send it now, or wait until its closer?",
     isEnd: false,
-      },
+  },
+  {
     id: "devA",
     description: "Development begins...",
     isEnd: false,
-    },
-    {
+  },
+  {
     id: "launch",
     description: "Launch!",
     isEnd: false,
-    },
-    {
-    id: "LateResearch"
-    description: "Research begins\n Time has been lost, but we need to do what we can!",
-    isEnd: false
-        },
-
-
-
-
-
+  },
+  {
+    id: "LateResearch",
+    description:
+      "Research begins\n Time has been lost, but we need to do what we can!",
+    isEnd: false,
+  },
 ];
 
 const edges = [
@@ -89,7 +87,6 @@ const edges = [
     reputation: 5,
     defense: 0,
     research: 10,
-
   },
   {
     from: "StartScreen",
@@ -98,11 +95,10 @@ const edges = [
     effectDesc:
       "A media package is released to publishers, news spreads online, people are uneasy",
     time: 0.5,
-    money:  0,
+    money: 0,
     reputation: -10,
     defense: 0,
     research: 0,
-
   },
   {
     from: "StartScreen",
@@ -114,7 +110,6 @@ const edges = [
     reputation: -10,
     defense: 0,
     research: 0,
-
   },
   {
     from: "NothingA",
@@ -126,7 +121,6 @@ const edges = [
     reputation: 5,
     defense: 5,
     research: 5,
-
   },
   {
     from: "A_Impact",
@@ -138,11 +132,10 @@ const edges = [
     reputation: 0,
     defense: 0,
     research: 0,
-
   },
   {
     from: "ImpactKnown",
-    to: "Volun",
+    to: "Volunt",
     optionText: "Act Now?",
     effectDesc: ". . .",
     time: 2,
@@ -150,11 +143,10 @@ const edges = [
     reputation: 5,
     defense: 5,
     research: 5,
-
   },
   {
-    from: "Volun",
-    to: "DevA",
+    from: "Volunt",
+    to: "devA",
     optionText: "Act Now?",
     effectDesc: ". . .",
     time: 2,
@@ -162,7 +154,7 @@ const edges = [
     reputation: 5,
     defense: 5,
     research: 5,
-      }
+  },
 ];
 
 export { nodes, edges };

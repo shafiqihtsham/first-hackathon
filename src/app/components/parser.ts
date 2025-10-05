@@ -21,7 +21,6 @@ type EdgeRow = {
   reputation: number;
   defense: number;
   research: number;
-  effects: number;
 };
 
 type NodeId = string;

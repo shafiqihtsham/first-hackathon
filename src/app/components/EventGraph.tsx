@@ -1,12 +1,19 @@
 import * as React from "react";
-import { EventGraph, NodeRow, EdgeRow } from "./parser";
+import { EventGraph } from "./parser";
 import { nodes, edges } from "./data"; // Import raw data arrays
+import { GameBackground } from "./GameBackground"; // import your background component
 
 export const WebEventGraph: React.FC = () => {
   const [currentNodeId, setCurrentNodeId] =
     React.useState<string>("StartScreen");
 
-  // Create EventGraph instance once (no dependencies, raw data is static)
+  // All normalized 1-100 scale
+  const [budget, setBudget] = React.useState(100);
+  const [publicOpinion, setPublicOpinion] = React.useState(50);
+  const [researchProgress, setResearchProgress] = React.useState(50);
+  const [defenseReadiness, setDefenseReadiness] = React.useState(50);
+
+  // Create EventGraph instance once (raw data is static)
   const eventGraph = React.useMemo(() => {
     try {
       return new EventGraph(nodes, edges);
@@ -25,27 +32,98 @@ export const WebEventGraph: React.FC = () => {
     (e) => e.from === currentNodeId
   );
 
-  return (
-    <div className="max-w-xl mx-auto mt-10 p-4 bg-white shadow-md rounded-lg text-center">
-      <h2 className="text-xl font-semibold mb-4 text-black">
-        {currentNode.description}
-      </h2>
+  // Update states on edge click, clamped between 0 and 100
+  const handleEdgeClick = (edge) => {
+    setCurrentNodeId(edge.to);
 
-      {outgoingEdges.length === 0 ? (
-        <p className="text-gray-500">No further options. End of path.</p>
-      ) : (
-        <div className="space-y-2">
-          {outgoingEdges.map((edge, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentNodeId(edge.to)}
-              className="w-full py-2 px-4 bg-green-500 hover:bg-green-600 text-black font-semibold rounded"
-            >
-              {edge.optionText || "Continue"}
-            </button>
-          ))}
-        </div>
-      )}
+    setBudget((prev) => Math.min(100, Math.max(0, prev + (edge.money || 0))));
+    setPublicOpinion((prev) =>
+      Math.min(100, Math.max(0, prev + (edge.reputation || 0)))
+    );
+    setResearchProgress((prev) =>
+      Math.min(100, Math.max(0, prev + (edge.research || 0)))
+    );
+    setDefenseReadiness((prev) =>
+      Math.min(100, Math.max(0, prev + (edge.defense || 0)))
+    );
+  };
+
+  // Progress bar component
+  const ProgressBar = ({ label, value, color }) => (
+    <div className="mb-2">
+      <div className="flex justify-between mb-1 text-sm font-medium text-white">
+        <span>{label}</span>
+        <span>{value}%</span>
+      </div>
+      <div className="w-40 bg-gray-700 rounded h-4">
+        <div
+          className="h-4 rounded"
+          style={{ width: `${value}%`, backgroundColor: color }}
+        />
+      </div>
+    </div>
+  );
+
+  // Example threatLevel and gameState, you can adjust these dynamically
+  const threatLevel = 50;
+  const gameState = "playing";
+
+  return (
+    <div className="relative w-full min-h-screen">
+      {/* Background */}
+      <GameBackground threatLevel={threatLevel} gameState={gameState} />
+
+      {/* Progress Bars Top Left */}
+      <div className="absolute top-4 left-4 bg-green-900/40 border-2 border-lime-400 text-[#00FF00] border-dashed rounded p-4 max-w-xs">
+        <ProgressBar label="Budget" value={budget} color="#10B981" />
+        <ProgressBar
+          label="Public Opinion"
+          value={publicOpinion}
+          color="#3B82F6"
+        />
+      </div>
+
+      {/* Progress Bars Top Right */}
+      <div className="absolute top-4 right-4 bg-green-900/40 border-2 border-lime-400 text-[#00FF00] border-dashed rounded p-4 max-w-xs">
+        <ProgressBar
+          label="Research Progress"
+          value={researchProgress}
+          color="#F59E0B"
+        />
+        <ProgressBar
+          label="Defense Readiness"
+          value={defenseReadiness}
+          color="#EF4444"
+        />
+      </div>
+
+      {/* Description box bottom-left */}
+      <div className="absolute bottom-6 left-6 max-w-sm min-h-52 bg-green-900/40 border-2 border-lime-400 text-[#00FF00] border-dashed rounded p-4">
+        <h2 className="whitespace-pre-line text-lg font-semibold">
+          {currentNode.description}
+        </h2>
+      </div>
+
+      {/* Buttons centered at bottom */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-full max-w-xl px-4">
+        {outgoingEdges.length === 0 ? (
+          <p className="text-center text-white font-semibold">
+            No further options. End of path.
+          </p>
+        ) : (
+          <div className="flex justify-center space-x-4">
+            {outgoingEdges.map((edge, index) => (
+              <button
+                key={index}
+                onClick={() => handleEdgeClick(edge)}
+                className="bg-white text-black font-semibold rounded px-6 py-2 hover:bg-gray-200 transition"
+              >
+                {edge.optionText || "Continue"}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
