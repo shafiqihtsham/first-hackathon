@@ -104,7 +104,7 @@ const nodes = [
   {
     id: "theBadEnding",
     description:
-      "No action was taken in time, the asteroid destroys... the city it was headed towards...\nor another country/ies saved the world...?",
+      "No action was taken in time, [the asteroid destroy the city it was headed towards]\n[or another country/ies saved the world]",
     isEnd: true,
   },
 
