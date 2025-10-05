@@ -7,6 +7,7 @@ type NodeRow = {
   id: string;
   description: string;
   isEnd: boolean;
+  factText?: string | undefined;
 };
 
 // Edges must include "from", "to", "optionText", and "condition"

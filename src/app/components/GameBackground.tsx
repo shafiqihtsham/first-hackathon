@@ -4,29 +4,30 @@ import { motion } from "motion/react";
 import { ImageWithFallback } from "./ImageWithFallback";
 
 interface GameBackgroundProps {
-  threatLevel: number; // 0-100, higher means asteroid is closer
+  timeToImpact: number; // seconds or arbitrary units, 0 = impact now
   gameState: "playing" | "money" | "opinion" | "defense" | "research";
 }
 
 export function GameBackground({
-  threatLevel,
+  timeToImpact,
   gameState,
 }: GameBackgroundProps) {
-  const getAsteroidPosition = () => {
-    // As threat level increases, asteroid moves closer to Earth
-    const distance = 100 - threatLevel * 0.8; // Min distance of 20%
-    return distance;
-  };
+  // Normalize timeToImpact to a 0-1 range (1 = far away, 0 = impact now)
+  // Clamp between 0 and 1 for safety
+  const normalizedTime = Math.min(Math.max(timeToImpact / 100, 0), 1);
 
-  const getAsteroidSize = () => {
-    // Asteroid appears larger as it gets closer
-    const baseSize = 30;
-    const additionalSize = (threatLevel / 100) * 40;
-    return baseSize + additionalSize;
-  };
+  // Map normalized time to vertical position:
+  // 1 (far away) => top: 0% (top of viewport)
+  // 0 (impact now) => top: 50% (center of viewport where Earth is)
+  const topPercent = 0 + (1 - normalizedTime) * 50;
+
+  // Asteroid size grows slightly as it approaches Earth
+  const baseSize = 40; // px
+  const maxSizeIncrease = 30; // px
+  const size = baseSize + maxSizeIncrease * (1 - normalizedTime);
 
   if (gameState !== "playing") {
-    // Show end-game backgrounds
+    // Show end-game backgrounds (same as your original)
     const endGameImages = {
       money:
         "https://images.unsplash.com/photo-1646227163733-90957a87b864?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXN0cm95ZWQlMjBjaXR5JTIwcnVpbnMlMjBhcG9jYWx5cHNlfGVufDF8fHx8MTc1OTU1NjgwN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
@@ -67,77 +68,38 @@ export function GameBackground({
         ))}
       </div>
 
-      {/* Earth */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-        animate={{
-          scale: threatLevel > 80 ? [1, 1.02, 1] : 1,
-        }}
-        transition={{
-          duration: 2,
-          repeat: threatLevel > 80 ? Infinity : 0,
-        }}
-      >
+      {/* Earth in center */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <ImageWithFallback
-          src="https://images.unsplash.com/photo-1632395627760-72e6eca7f9c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlYXJ0aCUyMGZyb20lMjBzcGFjZSUyMGJsdWUlMjBwbGFuZXR8ZW58MXx8fHwxNzU5NTQ1Mzg5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          src="/earth.png"
           alt="Earth"
           className="w-48 h-48 rounded-full object-cover"
         />
-        {threatLevel > 70 && (
-          <div className="absolute inset-0 rounded-full bg-red-500/20 animate-pulse" />
-        )}
-      </motion.div>
+      </div>
 
-      {/* Asteroid */}
+      {/* Asteroid - centered horizontally, moving vertically based on timeToImpact */}
       <motion.div
-        className="absolute"
-        style={{
-          right: `${getAsteroidPosition()}%`,
-          top: `${20 + (threatLevel / 100) * 30}%`,
-          width: `${getAsteroidSize()}px`,
-          height: `${getAsteroidSize()}px`,
-        }}
-        animate={{
-          rotate: 360,
-          x: threatLevel > 90 ? [-2, 2, -2] : 0,
-        }}
+        className="absolute left-1/2 transform -translate-x-1/2 rounded-full"
+        animate={{ top: `${topPercent}%`, rotate: 360 }}
         transition={{
+          top: { duration: 1, ease: "linear" },
           rotate: { duration: 10, repeat: Infinity, ease: "linear" },
-          x: { duration: 0.5, repeat: Infinity },
+        }}
+        style={{
+          width: size,
+          height: size,
+          minWidth: 30,
+          minHeight: 30,
+          maxWidth: 70,
+          maxHeight: 70,
         }}
       >
         <ImageWithFallback
-          src="https://images.unsplash.com/photo-1710268470228-6d77e6d999b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhc3Rlcm9pZCUyMHNwYWNlJTIwcm9jayUyMGRhcmt8ZW58MXx8fHwxNzU5NTU2ODAyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          src="/asteroid.png"
           alt="Asteroid"
           className="w-full h-full rounded-full object-cover"
         />
-        {threatLevel > 60 && (
-          <div className="absolute inset-0 rounded-full bg-orange-500/30 animate-pulse" />
-        )}
       </motion.div>
-
-      {/* Trajectory line */}
-      {threatLevel > 40 && (
-        <motion.div
-          className="absolute top-1/3 right-1/4 w-64 h-px bg-gradient-to-l from-red-500 to-transparent"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0.3, 0.7, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          style={{
-            transform: `rotate(${45 + (threatLevel / 100) * 15}deg)`,
-            transformOrigin: "right center",
-          }}
-        />
-      )}
-
-      {/* Warning effects when threat is high */}
-      {threatLevel > 80 && (
-        <motion.div
-          className="absolute inset-0 bg-red-500/10"
-          animate={{ opacity: [0, 0.3, 0] }}
-          transition={{ duration: 1, repeat: Infinity }}
-        />
-      )}
     </div>
   );
 }
