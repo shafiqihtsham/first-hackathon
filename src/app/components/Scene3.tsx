@@ -46,7 +46,7 @@ export function Scene3({ onNext }: Scene3Props) {
             <div className="absolute inset-0 bg-black/40" />
 
             {/* Observatory Data Overlays */}
-            <div className="absolute top-1/4 left-8 bg-green-900/80 p-4 rounded border-2 border-green-400 text-green-100 font-mono text-sm">
+            {/* <div className="absolute top-1/4 left-8 bg-green-900/80 p-4 rounded border-2 border-green-400 text-green-100 font-mono text-sm">
               <div>OBSERVATORY: Arecibo</div>
               <div>STATUS: CONFIRMED</div>
               <div>ORBIT: 0.887 AU</div>
@@ -56,7 +56,7 @@ export function Scene3({ onNext }: Scene3Props) {
               <div>ALERT LEVEL: CRITICAL</div>
               <div>TRAJECTORY: CONFIRMED</div>
               <div>IMPACT PROB: 87.3%</div>
-            </div>
+            </div> */}
           </div>
 
           {/* Second Panel */}
@@ -102,9 +102,7 @@ export function Scene3({ onNext }: Scene3Props) {
             The year passes by and multiple observatories around the world
             confirm the orbit and refine predictions.
           </p>
-          <div className="mt-6 text-white/70 text-sm">
-            Scroll to see all observatories • Click to continue
-          </div>
+          <div className="mt-6 text-white/70 text-sm">Click to continue</div>
         </div>
       </motion.div>
     </div>
