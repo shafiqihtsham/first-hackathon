@@ -6,7 +6,7 @@
 type NodeRow = {
   id: string;
   description: string;
-  isEnd: string;
+  isEnd: boolean;
 };
 
 // Edges must include "from", "to", "optionText", and "condition"
@@ -82,4 +82,4 @@ class EventGraph {
 
 export { EventGraph };
 
-export type { CSVRow, NodeRow, EdgeRow, NodeId };
+export type { NodeRow, EdgeRow, NodeId };
