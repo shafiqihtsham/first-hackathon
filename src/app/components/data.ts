@@ -302,7 +302,7 @@ const edges = [
   {
     from: "Volunt",
     to: "devA",
-    optionText: "Send a rendezvous mission early",
+    optionText: "Send a rendezvous mission early.",
     effectDesc: ". . .",
     time: 10,
     money: 30,
