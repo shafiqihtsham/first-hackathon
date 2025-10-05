@@ -79,8 +79,8 @@ export function Scene2({ onNext }: Scene2Props) {
             asteroid has a mass of 2 megatonnes and velocity of 22.01 km/s.
             Meaning that there is a significant likelihood of creating
             significant damage to human cities the size of Mexico City alongside
-            disrupting the biosphere's energy flow from the kicking of dust into
-            the atmosphere.
+            disrupting the biosphere&apos;s energy flow from the kicking of dust
+            into the atmosphere.
           </p>
           <div className="mt-6 text-white/70 text-sm">
             {!showSecondImage

@@ -52,7 +52,7 @@ export function Scene1({ onNext }: Scene1Props) {
       >
         <div className="max-w-4xl text-center">
           <p className="text-white text-xl md:text-2xl leading-relaxed font-medium bg-black/50 p-8 rounded-lg backdrop-blur-sm">
-            It is 2016 on a calm December night in Arizona's Mt Lemmon Observatory. 
+            It is 2016 on a calm December night in Arizona&apos;s Mt Lemmon Observatory. 
             Astronomers make the initial discovery of an asteroid with a potential 
             of colliding with the earth.
           </p>
