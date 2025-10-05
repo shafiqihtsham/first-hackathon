@@ -322,6 +322,17 @@ const edges = [
     defense: 10,
     research: 2,
   },
+    {
+    from: "Launch",
+    to: "win",
+    optionText: "Next!",
+    effectDesc: " . . .",
+    time: 0,
+    money: 0,
+    reputation: 0,
+    defense: 0,
+    research: 0,
+  },
   {
     from: "CountriesA",
     to: "LateResearch",
