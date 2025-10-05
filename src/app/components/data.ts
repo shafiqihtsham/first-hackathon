@@ -131,6 +131,18 @@ const edges = [
   },
   {
     from: "StartScreen",
+    to: "NothingA",
+    optionText: "Do Nothing...",
+    effectDesc:
+      "It'll all be fine... Nothing ever happens..",
+    time: 2,
+    money: 0,
+    reputation: 0,
+    defense: 0,
+    research: 0,
+  },
+  {
+    from: "StartScreen",
     to: "PubResponse",
     optionText: "Tell the Media",
     effectDesc:
@@ -186,19 +198,9 @@ const edges = [
     research: 0,
   },
 
+
   {
-    from: "NothingA",
-    to: "SlowResearch",
-    optionText: "Next",
-    effectDesc: ". . .",
-    time: 2,
-    money: -20,
-    reputation: 5,
-    defense: 5,
-    research: 5,
-  },
-  {
-    from: "SlowResearch",
+    from: "CountriesA",
     to: "UNint",
     optionText: "Let the UN delegate the workload & cost",
     effectDesc: "",
@@ -254,6 +256,17 @@ const edges = [
     reputation: -10,
     defense: 0,
     research: 0,
+  },
+    {
+    from: "Offer",
+    to: "LateResearch",
+    optionText: "Agree to help",
+    effectDesc: ". . .",
+    time: 2,
+    money: -5,
+    reputation: +5,
+    defense: 5,
+    research: 5,
   },
   {
     from: "OfferNo",
