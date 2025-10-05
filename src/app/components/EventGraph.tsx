@@ -34,7 +34,7 @@ export const WebEventGraph: React.FC = () => {
     (e) => e.from === currentNodeId
   );
 
-  const handleEdgeClick = (edge) => {
+  const handleEdgeClick = (edge: any) => {
     setCurrentNodeId(edge.to);
 
     setBudget((prev) => Math.min(100, Math.max(0, prev + (edge.money || 0))));
@@ -52,7 +52,15 @@ export const WebEventGraph: React.FC = () => {
     setTimeToImpact((prev) => Math.max(0, prev - (edge.time || 0)));
   };
 
-  const ProgressBar = ({ label, value, color }) => (
+  const ProgressBar = ({
+    label,
+    value,
+    color,
+  }: {
+    label: any;
+    value: any;
+    color: any;
+  }) => (
     <div className="mb-2">
       <div className="flex justify-between mb-1 text-sm font-medium text-white">
         <span>{label}</span>
@@ -67,7 +75,6 @@ export const WebEventGraph: React.FC = () => {
     </div>
   );
 
-  const threatLevel = 50;
   const gameState = "playing";
 
   return (

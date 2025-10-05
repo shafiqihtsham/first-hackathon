@@ -133,8 +133,7 @@ const edges = [
     from: "StartScreen",
     to: "NothingA",
     optionText: "Do Nothing...",
-    effectDesc:
-      "It'll all be fine... Nothing ever happens..",
+    effectDesc: "It'll all be fine... Nothing ever happens..",
     time: 2,
     money: 0,
     reputation: 0,
@@ -198,7 +197,6 @@ const edges = [
     research: 0,
   },
 
-
   {
     from: "CountriesA",
     to: "UNint",
@@ -257,7 +255,7 @@ const edges = [
     defense: 0,
     research: 0,
   },
-    {
+  {
     from: "Offer",
     to: "LateResearch",
     optionText: "Agree to help",
@@ -343,6 +341,7 @@ const edges = [
     money: 0,
     reputation: -5,
     defense: 5,
+    research: 0,
   },
   {
     from: "LateResearch",
