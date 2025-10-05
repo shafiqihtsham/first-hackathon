@@ -73,6 +73,11 @@ const nodes = [
       "Research begins\n Time has been lost, but we need to do what we can!",
     isEnd: false,
   },
+  {
+   id: "win",
+   description: "Crisis Averted!\nThe asteroid's path has been diverted, and the Earth has been saved",
+   isEnd: true,
+  },
 ];
 
 const edges = [
@@ -123,6 +128,23 @@ const edges = [
     research: 5,
   },
   {
+   from: "SlowResearch",
+   to: "UNint",
+   optionText: "Let the UN delegate the workload & cost",
+   effectDesc: "",
+   time: 2,
+   money: 0,
+   reputation: -2,
+   defense: 2,
+   research: 2,
+
+
+      },
+
+
+
+
+  {
     from: "A_Impact",
     to: "ImpactKnown",
     optionText: "Next",
@@ -147,14 +169,47 @@ const edges = [
   {
     from: "Volunt",
     to: "devA",
-    optionText: "Act Now?",
+    optionText: "Send a rendezvous mission early",
     effectDesc: ". . .",
-    time: 2,
+    time: 10,
     money: 30,
     reputation: 5,
     defense: 5,
     research: 5,
   },
+  {
+    from: "devA",
+    to: "launch",
+    optionText: "Launch!",
+    effectDesc: "Send the probe out to start its mission!",
+    time: 2,
+    money: -2,
+    reputation: 10,
+    defense: 10,
+    research: 2,
+  },
+  {
+    from: "CountriesA",
+    to: "LateResearch",
+    optionText: "Act Now on your own",
+    effectDesc: "",
+    time: 2,
+    money: 0,
+    reputation: -5,
+    defense: 5,
+      },
+  {
+    from: "LateResearch",
+    to: "devA",
+    optionText: "Send a rendezvous mission early",
+    effectDesc: ". . .",
+    time: 10,
+    money: 30,
+    reputation: 5,
+    defense: 5,
+    research: 5,
+
+      },
 ];
 
 export { nodes, edges };
