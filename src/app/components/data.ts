@@ -233,7 +233,6 @@ const edges = [
     research: 0,
   },
 
-
   {
     from: "Offer",
     to: "OfferNo",
@@ -322,7 +321,7 @@ const edges = [
     defense: 10,
     research: 2,
   },
-    {
+  {
     from: "Launch",
     to: "win",
     optionText: "Next!",
