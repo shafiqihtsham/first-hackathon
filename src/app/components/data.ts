@@ -50,38 +50,68 @@ const nodes = [
       "[Intermediate Screen]\nThe world comes together to discuss a solution\nDue to the disapproval of your country, there is little trust in your confidence.\nNo consensus is reached.",
     isEnd: false,
   },
+  {
+    id: "PubResponse",
+    description:
+        "Public response is not positive... \nShift efforts and funding to PR management?",
+    isEnd: false,
+      },
+   {
+    id: "Volunt",
+    description: "[Other Country] volunteers to aid in R&D\nWe’ll send a rocket to intercept it, knocking it off course!\nBut do we send it now, or wait until its closer?",
+    isEnd: false,
+      },
+    id: "devA",
+    description: "Development begins...",
+    isEnd: false,
+    },
+    {
+    id: "launch",
+    description: "Launch!",
+    isEnd: false,
+    },
+    {
+    id: "LateResearch"
+    description: "Research begins\n Time has been lost, but we need to do what we can!",
+    isEnd: false
+        },
+
+
+
+
+
 ];
 
 const edges = [
   {
     from: "StartScreen",
-    to: "StartA",
+    to: "A_Impact",
     optionText: "Investigate Further",
     effectDesc:
       "More resources are put towards research efforts, new observations are recorded, prediction confidence increases!",
     time: 3,
     money: -15,
-    reputation: 0,
+    reputation: 5,
     defense: 0,
-    research: 0,
-    effects: 0,
+    research: 10,
+
   },
   {
     from: "StartScreen",
-    to: "StartB",
+    to: "PubResponse",
     optionText: "Tell the Media",
     effectDesc:
       "A media package is released to publishers, news spreads online, people are uneasy",
     time: 0.5,
-    money: 0,
+    money:  0,
     reputation: -10,
     defense: 0,
     research: 0,
-    effects: 0,
+
   },
   {
     from: "StartScreen",
-    to: "StartC",
+    to: "NothingA",
     optionText: "Do nothing, it'll all be fine.",
     effectDesc: "Life continues as it always has...",
     time: 5,
@@ -89,7 +119,43 @@ const edges = [
     reputation: -10,
     defense: 0,
     research: 0,
-    effects: 0,
+
+  },
+  {
+    from: "NothingA",
+    to: "SlowResearch",
+    optionText: "Next",
+    effectDesc: ". . .",
+    time: 2,
+    money: -20,
+    reputation: 5,
+    defense: 5,
+    research: 5,
+
+  },
+  {
+    from: "A_Impact",
+    to: "ImpactKnown",
+    optionText: "Next",
+    effectDesc: ". . .",
+    time: 0,
+    money: 0,
+    reputation: 0,
+    defense: 0,
+    research: 0,
+
+  },
+  {
+    from: "ImpactKnown",
+    to: "Volun",
+    optionText: "Act Now?",
+    effectDesc: ". . .",
+    time: 2,
+    money: 30,
+    reputation: 5,
+    defense: 5,
+    research: 5,
+
   },
 ];
 
