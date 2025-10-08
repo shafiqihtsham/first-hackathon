@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://first-hackathon-bay.vercel.app/).
-https://first-hackathon-6npeiqmbu-shafiqihtshams-projects.vercel.app
-## Getting Started
+# Asteroid Defense Simulation – NASA Space Apps 2025
 
-First, run the development server:
+🔗 [Live Demo](https://first-hackathon-bay.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## About
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Submitted for the **NASA Space Apps Challenge 2025**, this web-based game tackles the "Impactor-2025" challenge. Players act as global leaders making tough decisions to protect Earth from a near-Earth asteroid threat.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You must balance:
+- Budget
+- Public opinion
+- Research
+- Defense capabilities
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The simulation turns complex NASA and USGS data into an accessible, educational experience that highlights the science and strategy behind asteroid mitigation.
 
-## Learn More
+## Built With
 
-To learn more about Next.js, take a look at the following resources:
+- React
+- Hosted on Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Team
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Created by [Team Astroidefy](https://www.spaceappschallenge.org/2025/find-a-team/asteroidefy/?tab=members)
+For NASA Space Apps Challenge 2025
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
